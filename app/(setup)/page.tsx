@@ -20,11 +20,7 @@ const SetupPage = async () => {
     return redirect(`/servers/${server.id}`);
   }
 
-  return (
-    <div suppressHydrationWarning>
-      <InitialModal />
-    </div>
-  );
+  return <InitialModal />;
 };
 
 export default SetupPage;
