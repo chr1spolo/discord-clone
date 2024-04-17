@@ -19,7 +19,7 @@ export function ModeToggle() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
-          className="bg-transparent border-0"
+          className="bg-slate-300 dark:bg-transparent border"
           variant="outline"
           size="icon"
         >
