@@ -20,7 +20,7 @@ import {
   UserPlus,
   Users,
 } from "lucide-react";
-import { useModal } from "@/hooks/use-modal-storage";
+import { useModal } from "@/hooks/use-modal-store";
 
 interface ServerHeaderProps {
   server: ServerWithMembersWithProfiles;
@@ -50,7 +50,7 @@ const ServerHeader = ({ server, role }: ServerHeaderProps) => {
         {isModerator && (
           <DropdownMenuItem
             onClick={() => {
-              onOpen("invite", { server: server });
+              onOpen("invite", { server });
             }}
             className="text-indigo-600 dark:text-indigo-400 px-3 py-2 text-sm cursor-pointer transition-all border-b border-b-transparent hover:border-b-indigo-600"
           >
@@ -60,7 +60,12 @@ const ServerHeader = ({ server, role }: ServerHeaderProps) => {
         )}
         {isAdmin && (
           <>
-            <DropdownMenuItem className="px-3 py-2 text-sm cursor-pointer transition-all border-b border-b-transparent hover:border-b-white ">
+            <DropdownMenuItem
+              className="px-3 py-2 text-sm cursor-pointer transition-all border-b border-b-transparent hover:border-b-white "
+              onClick={() => {
+                onOpen("editServer", { server });
+              }}
+            >
               Server Settings
               <Settings className="h-4 w-4 ml-auto" />
             </DropdownMenuItem>
