@@ -5,6 +5,7 @@ import Image from "next/image";
 
 import { UploadDropzone } from "@/lib/uploadthing";
 import "@uploadthing/react/styles.css";
+import { useToast } from "@/components/ui/use-toast";
 
 interface FileUploadProps {
   onChange: (url?: string) => void;
@@ -13,6 +14,7 @@ interface FileUploadProps {
 }
 
 export const FileUpload = ({ endpoint, value, onChange }: FileUploadProps) => {
+  const { toast } = useToast();
   const fileType = value?.split(".").pop();
 
   if (value && fileType !== "pdf") {
@@ -22,8 +24,8 @@ export const FileUpload = ({ endpoint, value, onChange }: FileUploadProps) => {
           fill
           src={value}
           alt="Upload"
-          objectFit="contain"
-          className="rounded-full bg-black"
+          objectFit="container"
+          className="rounded-full bg-black object-cover"
         />
 
         <button
@@ -43,7 +45,12 @@ export const FileUpload = ({ endpoint, value, onChange }: FileUploadProps) => {
         onChange(res?.[0].url);
       }}
       onUploadError={(error: Error) => {
-        console.log(error);
+        toast({
+          title: "An error ocurred",
+          description: error.message,
+          className: "bg-rose-600",
+          duration: 3000,
+        });
       }}
     />
   );
