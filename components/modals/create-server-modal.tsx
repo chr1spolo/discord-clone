@@ -28,6 +28,7 @@ import { Button } from "@/components/ui/button";
 import { FileUpload } from "@/components/file-upload";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-modal-store";
+import { Loader } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -126,8 +127,19 @@ export const CreateServerModal = () => {
               />
             </div>
             <DialogFooter className="bg-gray-100 px-6 py-4">
-              <Button disabled={isLoading} variant={"primary"}>
-                Create
+              <Button
+                disabled={
+                  isLoading || form.getValues("imageUrl").length === 0
+                    ? true
+                    : false
+                }
+                variant={"primary"}
+              >
+                {isLoading ? (
+                  <Loader className="animate-[spin_1.5s_linear_infinite]" />
+                ) : (
+                  "Create"
+                )}
               </Button>
             </DialogFooter>
           </form>
