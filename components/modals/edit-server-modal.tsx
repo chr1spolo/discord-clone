@@ -46,6 +46,8 @@ export const EditServerModal = () => {
   const isModalOpen = isOpen && type === "editServer";
   const { server } = data;
 
+  console.log(server);
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -76,7 +78,6 @@ export const EditServerModal = () => {
   };
 
   const handleClose = () => {
-    form.reset();
     onClose();
   };
 
@@ -135,7 +136,7 @@ export const EditServerModal = () => {
               />
             </div>
             <DialogFooter className="bg-gray-100 px-6 py-4">
-              <Button disabled={isLoading} variant={"primary"}>
+              <Button disabled={isLoading} variant={"default"}>
                 Save
               </Button>
             </DialogFooter>

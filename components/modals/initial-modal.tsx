@@ -1,5 +1,7 @@
 "use client";
 
+import React from "react";
+
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -41,6 +43,7 @@ const formSchema = z.object({
 
 export const InitialModal = () => {
   const [isMounted, setIsMounted] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(true);
 
   const router = useRouter();
 
@@ -48,7 +51,13 @@ export const InitialModal = () => {
     if (!isMounted) {
       setIsMounted(true);
     }
-  }, [isMounted]);
+
+    return () => {
+      if (!open) {
+        setOpen(true);
+      }
+    };
+  }, [open, isMounted]);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -63,7 +72,8 @@ export const InitialModal = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const server = await axios.post("/api/servers", values);
-
+      setOpen(false);
+      form.reset();
       router.refresh();
       router.push(`/servers/${server.data.id}`);
     } catch (error) {
@@ -74,7 +84,7 @@ export const InitialModal = () => {
   if (!isMounted) return null;
 
   return (
-    <Dialog open>
+    <Dialog open={open}>
       <DialogContent className="bg-white text-black p-0 overflow-hidden">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
@@ -134,7 +144,7 @@ export const InitialModal = () => {
                     ? true
                     : false
                 }
-                variant={"primary"}
+                variant={"default"}
               >
                 {isLoading ? (
                   <Loader className="animate-[spin_1.5s_linear_infinite]" />
