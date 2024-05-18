@@ -1,7 +1,8 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
 import { Search } from "lucide-react";
-import { useState } from "react";
 import {
   CommandDialog,
   CommandEmpty,
@@ -10,6 +11,8 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
+
+import { Command } from "cmdk";
 
 interface ServerSearchProps {
   data: {
@@ -27,6 +30,38 @@ interface ServerSearchProps {
 
 export const ServerSearch = ({ data }: ServerSearchProps) => {
   const [open, setOpen] = useState(false);
+  const router = useRouter();
+  const params = useParams();
+
+  useEffect(() => {
+    const down = (e: KeyboardEvent) => {
+      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault();
+        setOpen((open) => !open);
+      }
+    };
+
+    document.addEventListener("keydown", down);
+    return () => document.removeEventListener("keydown", down);
+  }, []);
+
+  const onClick = ({
+    id,
+    type,
+  }: {
+    id: string;
+    type: "channel" | "member";
+  }) => {
+    setOpen(false);
+
+    if (type === "member") {
+      return router.push(`/servers/${params.serverId}/conversations/${id}`);
+    }
+
+    if (type === "channel") {
+      return router.push(`/servers/${params.serverId}/channels/${id}`);
+    }
+  };
 
   return (
     <>
@@ -54,13 +89,12 @@ export const ServerSearch = ({ data }: ServerSearchProps) => {
                 {data?.map(({ id, icon, name }) => {
                   return (
                     <CommandItem
-                      disabled={false}
-                      className="cursor-pointer"
                       key={id}
-                      onClick={() => console.log(21)}
+                      onSelect={() => onClick({ id, type })}
+                      className="cursor-pointer data-[disabled]:pointer-events-auto text-white data-[disabled]:opacity-100"
                     >
                       {icon}
-                      <label>{name}</label>
+                      <span>{name}</span>
                     </CommandItem>
                   );
                 })}

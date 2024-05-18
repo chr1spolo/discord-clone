@@ -22,7 +22,7 @@ const roleIconMap = {
   [MemberRole.MODERATOR]: (
     <ShieldCheck className="h-4 w-4 mr-2 text-indigo-500" />
   ),
-  [MemberRole.ADMIN]: <ShieldAlert className="h-4 w-4 mr-2 text-indigo-500" />,
+  [MemberRole.ADMIN]: <ShieldAlert className="h-4 w-4 mr-2 text-rose-500" />,
 };
 
 export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
@@ -63,7 +63,7 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
   );
 
   const members = server?.members.filter(
-    (member) => member.profileId === profile.id
+    (member) => member.profile.id !== profile.id
   );
 
   if (!server) return redirect("/");
