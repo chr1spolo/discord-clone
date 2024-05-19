@@ -20,7 +20,7 @@ export const ActionTooltip = ({
   children,
   side,
   align,
-  duration = 700,
+  duration = 200,
 }: ActionTooltipProps) => {
   return (
     <TooltipProvider>
