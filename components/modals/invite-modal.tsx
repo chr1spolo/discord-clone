@@ -15,6 +15,7 @@ import { Check, Copy, RefreshCw } from "lucide-react";
 import { UseOrigin } from "@/hooks/use-origin";
 import { useState } from "react";
 import axios from "axios";
+import { cn } from "@/lib/utils";
 
 export const InviteModal = () => {
   const { isOpen, onClose, onOpen, type, data } = useModal();
@@ -49,7 +50,7 @@ export const InviteModal = () => {
     } catch (error) {
       console.log(error);
     } finally {
-      setIsLoading(false);
+      setTimeout(() => setIsLoading(false), 1000)
     }
   };
 
@@ -87,7 +88,12 @@ export const InviteModal = () => {
             className="text-sm text-zinc-500 mt-4"
           >
             Generate a new link
-            <RefreshCw className="w-4 h-4 ml-2" />
+            <RefreshCw
+              className={cn(
+                "w-4 h-4 ml-2",
+                isLoading && "animate-[spin_1.8s_linear_infinite]"
+              )}
+            />
           </Button>
         </div>
       </DialogContent>

@@ -29,6 +29,7 @@ import { FileUpload } from "@/components/file-upload";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-modal-store";
 import { useEffect } from "react";
+import { Loader } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -136,8 +137,12 @@ export const EditServerModal = () => {
               />
             </div>
             <DialogFooter className="bg-gray-100 px-6 py-4">
-              <Button disabled={isLoading} variant={"default"}>
-                Save
+              <Button disabled={isLoading} variant={"secondary"}>
+                {isLoading ? (
+                  <Loader className="animate-[spin_1.8s_linear_infinite]" />
+                ) : (
+                  "Save"
+                )}
               </Button>
             </DialogFooter>
           </form>

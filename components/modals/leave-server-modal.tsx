@@ -15,6 +15,7 @@ import {
 
 import { useModal } from "@/hooks/use-modal-store";
 import { Button } from "@/components/ui/button";
+import { Loader } from "lucide-react";
 
 export const LeaveServerModal = () => {
   const { isOpen, onClose, onOpen, type, data } = useModal();
@@ -60,8 +61,16 @@ export const LeaveServerModal = () => {
             <Button disabled={isLoading} onClick={onClose} variant="ghost">
               Cancel
             </Button>
-            <Button disabled={isLoading} variant="primary" onClick={onConfirm}>
-              Confirm
+            <Button
+              disabled={isLoading}
+              variant={"secondary"}
+              onClick={onConfirm}
+            >
+              {isLoading ? (
+                <Loader className="animate-[spin_1.8s_linear_infinite]" />
+              ) : (
+                "Confirm"
+              )}
             </Button>
           </div>
         </DialogFooter>

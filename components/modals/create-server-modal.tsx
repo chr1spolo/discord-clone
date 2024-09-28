@@ -133,10 +133,10 @@ export const CreateServerModal = () => {
                     ? true
                     : false
                 }
-                variant={"primary"}
+                variant={"secondary"}
               >
                 {isLoading ? (
-                  <Loader className="animate-[spin_1.5s_linear_infinite]" />
+                  <Loader className="animate-[spin_1.8s_linear_infinite]" />
                 ) : (
                   "Create"
                 )}

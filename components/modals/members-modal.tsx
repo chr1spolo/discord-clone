@@ -42,7 +42,7 @@ import axios from "axios";
 const roleIconMap = {
   GUEST: null,
   MODERATOR: <ShieldCheck className="h-4 w-4 ml-2 text-indigo-500" />,
-  ADMIN: <ShieldAlert className="h-4 w-4 text-rose-500" />,
+  ADMIN: <ShieldAlert className="h-4 w-4 ml-2 text-rose-500" />,
 };
 
 export const MembersModal = () => {
@@ -165,7 +165,7 @@ export const MembersModal = () => {
                   </div>
                 )}
               {loadingId === member.id && (
-                <Loader className="animate-spin text-zinc-500 ml-auto w-4 h-4" />
+                <Loader className="animate-[spin_1.8s_linear_infinite] text-zinc-500 ml-auto w-4 h-4" />
               )}
             </div>
           ))}
